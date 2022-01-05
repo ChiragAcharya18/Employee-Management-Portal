@@ -1,0 +1,13 @@
+D:\AngularProjects\ASP.NET\WebApiTest\DatabaseModel\bin\Debug\netcoreapp3.1\DatabaseModel.deps.json
+D:\AngularProjects\ASP.NET\WebApiTest\DatabaseModel\bin\Debug\netcoreapp3.1\DatabaseModel.runtimeconfig.json
+D:\AngularProjects\ASP.NET\WebApiTest\DatabaseModel\bin\Debug\netcoreapp3.1\DatabaseModel.runtimeconfig.dev.json
+D:\AngularProjects\ASP.NET\WebApiTest\DatabaseModel\bin\Debug\netcoreapp3.1\DatabaseModel.dll
+D:\AngularProjects\ASP.NET\WebApiTest\DatabaseModel\bin\Debug\netcoreapp3.1\DatabaseModel.pdb
+D:\AngularProjects\ASP.NET\WebApiTest\DatabaseModel\obj\Debug\netcoreapp3.1\DatabaseModel.GeneratedMSBuildEditorConfig.editorconfig
+D:\AngularProjects\ASP.NET\WebApiTest\DatabaseModel\obj\Debug\netcoreapp3.1\DatabaseModel.AssemblyInfoInputs.cache
+D:\AngularProjects\ASP.NET\WebApiTest\DatabaseModel\obj\Debug\netcoreapp3.1\DatabaseModel.AssemblyInfo.cs
+D:\AngularProjects\ASP.NET\WebApiTest\DatabaseModel\obj\Debug\netcoreapp3.1\DatabaseModel.csproj.CoreCompileInputs.cache
+D:\AngularProjects\ASP.NET\WebApiTest\DatabaseModel\obj\Debug\netcoreapp3.1\DatabaseModel.dll
+D:\AngularProjects\ASP.NET\WebApiTest\DatabaseModel\obj\Debug\netcoreapp3.1\DatabaseModel.pdb
+D:\AngularProjects\ASP.NET\WebApiTest\DatabaseModel\obj\Debug\netcoreapp3.1\DatabaseModel.genruntimeconfig.cache
+D:\AngularProjects\ASP.NET\WebApiTest\DatabaseModel\obj\Debug\netcoreapp3.1\DatabaseModel.csproj.AssemblyReference.cache

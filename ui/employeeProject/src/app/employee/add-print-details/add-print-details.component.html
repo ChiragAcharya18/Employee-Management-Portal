@@ -1,0 +1,225 @@
+<div class="card card-outline-secondary">
+  <!-- <div class="card-header">
+    <h3 class="mb-0">Employee Details</h3>
+  </div> -->
+  <div class="card-body">
+      <div class="row mt-4">
+
+        <div class="col-sm-4 pb-3">
+          <label for="exampleSt">Employee</label>
+          <select class="form-control custom-select" id="employee" [(ngModel)]=EmployeeId (change)="employeeChange()">
+            <option class="text-white bg-warning" value=null selected>
+             {{EmpName? EmpName:'Select a employee'}}
+            </option>
+            <option *ngFor="let emp of Employees;" value={{emp.EmployeeId}}>
+              {{emp.EmployeeName}}
+            </option>
+          </select>
+        </div>
+
+
+        <div class="col-sm-4 pb-3">
+          <label for="exampleCtrl">Department</label>
+          <input class="form-control" id="exampleCtrl" placeholder="Department Name" required type="text"
+            [value]="DepartmentName === undefined || DepartmentName == null? 'Department Name': DepartmentName + '-' + DepartmentId" disabled>
+        </div>
+
+        <div class="col-sm-4 pb-3">
+          <label for="exampleCtrl">Email</label>
+          <input class="form-control" id="exampleCtrl" placeholder="example@domain.com" required type="email"
+            [(ngModel)]="Email">
+        </div>
+
+        <div class="col-sm-4 pb-3">
+          <label for="exampleFirst">Date of Birth</label>
+          <input class="form-control" id="exampleFirst" type="date" required [(ngModel)]="Dob">
+        </div>
+
+        <div class="col-sm-6 pb-3">
+          <label for="exampleCity">Job Title</label>
+          <input class="form-control" id="jobTitle" type="text" required [(ngModel)]="JobTitle">
+        </div>
+
+        <div class="col-sm-6 pb-3">
+          <label for="exampleLast">Salary</label>
+          <input class="form-control" id="exampleLast" type="text" required [(ngModel)]="Salary">
+        </div>
+        <div class="col-sm-6 pb-3">
+          <label for="exampleCity">PF Number</label>
+          <input class="form-control" id="exampleCity" type="text" required [(ngModel)]="PfNumber">
+        </div>
+
+        <div class="col-sm-4 pb-3">
+          <label for="exampleCity">List of Assets</label>
+          <input class="form-control" id="exampleCity" type="text" required [(ngModel)]="Assets">
+        </div>
+
+        <div class="col-sm-4 pb-3">
+          <label for="exampleSt">Blood Group</label> <select class="form-control custom-select" id="bloodGroup" required
+            [(ngModel)]="BloodGroup">
+            <option class="text-white bg-warning" selected>
+              Pick a Blood Group
+            </option>
+            <option value="A+">
+              A+
+            </option>
+            <option value="A-">
+              A-
+            </option>
+            <option value="B+">
+              B+
+            </option>
+            <option value="B-">
+              B-
+            </option>
+            <option value="AB+">
+              AB+
+            </option>
+            <option value="AB-">
+              AB-
+            </option>
+            <option value="O+">
+              O+
+            </option>
+            <option value="O-">
+              O-
+            </option>
+          </select>
+        </div>
+
+
+        <div class="col-sm-4 pb-3">
+          <label for="exampleCity">Employee Type</label>
+          <select class="form-control custom-select" id="employeeTypes" required [(ngModel)]=EmployeeTypeIdValue>
+            <option class="text-white bg-warning" selected>
+              Select a Employee Type
+            </option>
+            <option *ngFor="let empType of EmployeeTypeList;" value={{empType.EmployeeTypeId}}>
+              {{empType.EmployeeType1}}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-sm-6 pb-3">
+          <label for="exampleSt">Marital Status</label> <select class="form-control custom-select" id="bloodGroup"
+            required [(ngModel)]="MaritalStatus">
+            <option class="text-white bg-warning" selected>
+              Pick a Status
+            </option>
+            <option value="Married">
+              Married
+            </option>
+            <option value="Unmarried">
+              Unmarried
+            </option>
+          </select>
+        </div>
+
+        <div class="col-sm-6 pb-3">
+          <label for="exampleCity">Phone Number</label>
+          <input class="form-control" id="exampleCity" type="text" required [(ngModel)]="PhoneNumber">
+        </div>
+
+        <div class="col-sm-6 pb-3" *ngIf="Address !== null;">
+          <label for="exampleCity">Address </label>
+          <input class="form-control" id="exampleCity" type="text" required [(ngModel)]="Address" disabled>
+        </div>
+
+
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                {{Address? "Update address":'Add Address'}}
+                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                  <span class="visually-hidden">New alerts</span>
+                </span>
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="row mt-4">
+                  <div class="col-sm-6 pb-3">
+                    <label for="exampleCity">Address Line 1</label>
+                    <input class="form-control" id="exampleCity" type="text" [(ngModel)]="Addr" required>
+                  </div>
+
+                  <div class="col-sm-6 pb-3">
+                    <label for="exampleCity">Country</label>
+                    <select class="form-control custom-select" id="exampleSt" [(ngModel)]="Country" (change)="selectState()" required>
+                      <option class="text-white bg-warning">
+                        Pick a country
+                      </option>
+                      <option *ngFor="let c of Countries;" value={{c.name}}>
+                        {{c.name}}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="col-sm-6 pb-3">
+                    <label for="exampleSt">State</label>
+                    <select class="form-control custom-select" id="exampleSt" (change)="getCities()" [(ngModel)]="State" required>
+                      <option class="text-white bg-warning">
+                        Pick a state
+                      </option>
+                      <option *ngFor="let c of States;" value={{c.name}}>
+                        {{c.name}}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="col-sm-6 pb-3">
+                    <label for="exampleCity">City</label>
+                    <select class="form-control custom-select" id="exampleSt"  [(ngModel)]="City" required>
+                      <option class="text-white bg-warning">
+                        Pick a state
+                      </option>
+                      <option *ngFor="let c of Cities;" value={{c}}>
+                        {{c}}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="col-sm-6 pb-3">
+                    <label for="exampleCity">District</label>
+                    <input class="form-control" id="exampleCity" type="text" [(ngModel)]="District" required>
+                  </div>
+
+                  <div class="col-sm-3 pb-3">
+                    <label for="exampleZip">Postal Code</label>
+                    <input class="form-control" id="exampleZip" type="text" [(ngModel)]="Zip" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <br>
+      <div class="float-left">
+        <button class="btn btn-sm btn-light m-2 text-dark" (click)="onRefresh()"> Refresh
+          <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+          </svg>
+        </button>
+        <input class="btn btn-secondary btn-sm m-2" data-bs-dismiss="modal" (click)="onCancel()" type="reset" value="Cancel">
+
+      <input class="btn btn-primary btn-sm m-2" type="submit" (click)="onSubmit()" value="Submit Employee Details" [hidden]="!submitFlag">
+      <input class="btn btn-primary btn-sm m-2" type="submit" (click)="onUpdate()" value="Update Employee Details" [hidden]="submitFlag">
+      </div>
+
+  </div>
+  <!-- <div class="card-footer">
+    <div class="float-right">
+      <input class="btn btn-secondary m-2" data-bs-dismiss="modal" type="reset" value="Cancel">
+      <input class="btn btn-primary m-2" type="button" value="Submit Employee Details">
+    </div>
+  </div> -->
+</div>
+<!--/card-->
+
+
+
+<!-- Button trigger modal -->

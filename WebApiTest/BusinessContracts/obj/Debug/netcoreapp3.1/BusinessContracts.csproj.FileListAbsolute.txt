@@ -1,0 +1,15 @@
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\bin\Debug\netcoreapp3.1\BusinessContracts.deps.json
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\bin\Debug\netcoreapp3.1\BusinessContracts.dll
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\bin\Debug\netcoreapp3.1\BusinessContracts.pdb
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\obj\Debug\netcoreapp3.1\BusinessContracts.csproj.AssemblyReference.cache
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\obj\Debug\netcoreapp3.1\BusinessContracts.GeneratedMSBuildEditorConfig.editorconfig
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\obj\Debug\netcoreapp3.1\BusinessContracts.AssemblyInfoInputs.cache
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\obj\Debug\netcoreapp3.1\BusinessContracts.AssemblyInfo.cs
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\obj\Debug\netcoreapp3.1\BusinessContracts.csproj.CoreCompileInputs.cache
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\obj\Debug\netcoreapp3.1\BusinessContracts.dll
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\obj\Debug\netcoreapp3.1\BusinessContracts.pdb
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\bin\Debug\netcoreapp3.1\BusinessContracts.runtimeconfig.json
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\bin\Debug\netcoreapp3.1\BusinessContracts.runtimeconfig.dev.json
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\obj\Debug\netcoreapp3.1\BusinessContracts.genruntimeconfig.cache
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\bin\Debug\netcoreapp3.1\DatabaseModel.dll
+D:\AngularProjects\ASP.NET\WebApiTest\BusinessContracts\bin\Debug\netcoreapp3.1\DatabaseModel.pdb

@@ -1,0 +1,290 @@
+
+
+<!-- Modal -->
+<div class="modal fade" id="openForPrint" tabindex="-1" aria-labelledby="openForPrintLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="openForPrintLabel">Employee Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="EmpName != null; else elsePart">
+        <h6><strong>Employee Id: </strong></h6>
+        <h6>ECC-21-{{EmployeeId}}</h6>
+        <h6><strong>Employee Name: </strong></h6>
+        <h6>{{EmpName}}</h6>
+        <h6><strong>Department: </strong></h6>
+        <h6>{{DepartmentName}}</h6>
+      </div>
+      <ng-template #elsePart><div class="container m-5"  style="color: red;">Please enter the Employee details first</div></ng-template>
+      <div class="modal-footer">
+        <button type="button" id="closePrintModal" class="btn btn-secondary btn-sm" #closePrintModal data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-sm btn-outline-dark m-2" (click)="PrintEmployee()" data-bs-dismiss="modal" [disabled]="!disablePrint" > Print
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer"  viewBox="0 0 16 16">
+            <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+            <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isLogin; else elseBlock2">
+
+
+  <h4 class="d-flex justify-content-center"><strong>Employees</strong></h4>
+
+  <div *ngIf="(EmployeeList === null); else elseBlock" class=""> <br>
+
+    <!-- <div class="d-flex justify-content-center">
+    <div class="spinner-border spinner" role="status">
+    </div>
+  </div>
+</div> -->
+
+    <!-- <div class="container d-flex justify-content-center ">
+      <div class="spinner">
+        <div class="inner one"></div>
+        <div class="inner two"></div>
+        <div class="inner three"></div>
+      </div>
+    </div> <br> -->
+    <!-- <p class="container d-flex justify-content-center">Loading</p> -->
+    <p class="container d-flex justify-content-center small text-danger" *ngIf="errorMsg.length !== 0">Unable to get
+      data! &nbsp; Retrying... </p>
+    <!-- <p class="container d-flex justify-content-center" *ngIf="errorMsg.length !== 0">Retrying...</p> -->
+  </div>
+
+<!-- Modal Print Details -->
+
+<div class="modal fade" id="addEmpDetails" tabindex="-1" aria-labelledby="addEmpDetailsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="addEmpDetailsLabel"> Employee Details </h3>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+      </div>
+      <div class="modal-body">
+        <app-add-print-details></app-add-print-details>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+  <ng-template #elseBlock>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary float-right btn-sm m-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
+      (click)="addClick()" data-backdrop="static" data-keyboard="false">
+      Add Employee
+    </button>
+    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addEmpDetails" data-bs-whatever="@fat">Fill Employee data</button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+              (click)="closeClick()"></button>
+          </div>
+          <div class="modal-body">
+            <app-add-edit-emp [emp]="emp" *ngIf="ActivateAddEditEmpComp"></app-add-edit-emp>
+            <!-- [dep]="dep"  -->
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <div *ngIf="EmployeeList !== null && EmployeeList.length === 0; else showTable">No employees present</div>
+    <ng-template #showTable>
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr style="border: 1px solid Transparent!important;">
+          <td colspan="2">
+            <div class="d-flex flex-row">
+              <input type="text" [(ngModel)]="EmployeeIdFilter" class="form-control w-75" (keyup)="FilterFn()"
+                placeholder="Filter by Employee Id" />
+                 <svg
+                  xmlns="http://www.w3.org/2000/svg" width="16" height="16" (click)="sortResult('EmployeeId',true)" fill="currentColor"
+                  class="bi bi-caret-up-square-fill m-2" viewBox="0 0 16 16">
+                  <path
+                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11z" />
+                </svg> 
+                 <svg
+                  xmlns="http://www.w3.org/2000/svg" width="16" height="16" (click)="sortResult('EmployeeId',false)" fill="currentColor"
+                  class="bi bi-caret-down-square-fill m-2" viewBox="0 0 16 16">
+                  <path
+                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z" />
+                </svg>
+            </div>
+          </td>
+          <td colspan="2">
+            <div class="d-flex flex-row">
+              <input type="text" [(ngModel)]="EmployeeNameFilter" class="form-control w-75" (keyup)="FilterFn()"
+                placeholder="Filter by Employee Name" />
+                <svg xmlns="http://www.w3.org/2000/svg" (click)="sortResult('EmployeeName',true)" width="16" height="16" fill="currentColor"
+                  class="bi bi-caret-up-square-fill m-2" viewBox="0 0 16 16">
+                  <path
+                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11z" />
+                </svg>
+                 <svg xmlns="http://www.w3.org/2000/svg" (click)="sortResult('EmployeeName',false)" width="16" height="16" fill="currentColor"
+                  class="bi bi-caret-down-square-fill m-2" viewBox="0 0 16 16">
+                  <path
+                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z" />
+                </svg> 
+            </div>
+          </td>
+          <td colspan="2">
+            <div class="d-flex flex-row">
+              <input type="text" [(ngModel)]="DepartmentFilter" class="form-control w-75" (keyup)="FilterFn()"
+                placeholder="Filter by Department" />
+                 <svg xmlns="http://www.w3.org/2000/svg" (click)="sortResult('Department',true)" width="16" height="16" fill="currentColor"
+                  class="bi bi-caret-up-square-fill m-2" viewBox="0 0 16 16">
+                  <path
+                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" (click)="sortResult('Department',false)" width="16" height="16" fill="currentColor"
+                  class="bi bi-caret-down-square-fill m-2" viewBox="0 0 16 16">
+                  <path
+                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z" />
+                </svg>
+            </div>
+          </td>
+        </tr>
+      </thead>
+      <thead class="bg-dark text-white">
+        <tr>
+          <th scope="col">Sr. No</th>
+          <th scope="col">Employee Id</th>
+          <th scope="col">Employee Name</th>
+          <th scope="col">Department</th>
+          <th scope="col">Date of Joining</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dataItem of EmployeeList; index as i;">
+          <td>{{i+1}}</td>
+          <td>{{dataItem.EmployeeId}}</td>
+          <td>{{dataItem.EmployeeName}}</td>
+          <td>{{dataItem.Department}}</td>
+          <td>{{dataItem.DateOfJoining.slice(0,10)}}</td>
+          <td>
+            <button type="button" class="btn btn-sm btn-light float-right m-2" data-bs-toggle="modal"
+              data-bs-target="#exampleModal" (click)="editClick(dataItem)" data-backdrop="static"
+              data-keyboard="false">Edit
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+              </svg></button>
+
+            <button type="button" class="btn btn-sm btn-danger float-right m-2" (click)="deleteClick(dataItem)"> Delete
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path
+                  d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+              </svg>
+            </button>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-success btn-sm " data-bs-toggle="modal" data-bs-target="#openForPrint" (click)="openPrintModel(dataItem.EmployeeId)">
+                View 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                </svg>
+              </button>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+  </ng-template>
+</div>
+
+
+
+<ng-template #elseBlock2>
+  <span class="badge bg-warning text-dark">Please login first</span>
+</ng-template>
+
+
+
+
+<div hidden>
+  <div class="container" id="printContainer" #printContainer [(ngModel)]=printValues>
+    <div class="container" style="text-align: center;">
+      <h6>Employee Details</h6>
+      <img src="https://y26uq11r8xr1zyp0d3inciqv-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/32-1-1024x597.jpg" alt="ProfilePhoto" height="70%" width="70%" /> <br>
+    </div> <br>
+    <label style="font-size: x-small;">Print Id: EFX-{{EmployeeId}}-{{PrintId}}</label> <br> 
+    <table class="printTable" style="border-collapse: collapse;" width="50%">
+      <tr>
+        <td style="font-size: x-small;font-weight: bold;" width="15%" >Employee Id: </td>
+        <td style="font-size: x-small;padding: 3px;" width="30%" > EMP-{{EmployeeId}}</td> 
+      </tr>
+      <tr> 
+        <td style="font-size: x-small;font-weight: bold;" width="15%" >Department Id: </td>
+        <td style="font-size: x-small;padding: 3px;" width="30%" > DEP-{{DepartmentId}}</td>
+      </tr>
+      <tr>
+        <td style="font-size: x-small;font-weight: bold;" width="15%" >Employee Name: </td>
+        <td style="font-size: x-small;padding: 3px;" width="30%" > {{EmpName}}</td>
+      </tr>
+      <tr>
+        <td style="font-size: x-small;font-weight: bold;" width="15%" >Department: </td>
+        <td style="font-size: x-small;padding: 3px;" width="30%" > {{DepartmentName}}</td>
+      </tr>
+      <tr>
+        <td style="font-size: x-small;font-weight: bold;" width="15%" >Employee Type: </td>
+        <td style="font-size: x-small;padding: 3px;" width="30%" > {{EmployeeType}}</td>
+      </tr>
+      <tr>
+        <td style="font-size: x-small;font-weight: bold;" width="15%" >Job Title: </td>
+        <td style="font-size: x-small;padding: 3px;" width="30%" > {{JobTitle}}</td>
+      </tr>
+    </table>
+   <br>
+   <table class="printTable" style="border-collapse: collapse;" width="100%">
+    <tr style="border: solid 1px black;font-size: small;text-align: center; background-color: grey; font-weight: bold;padding: 5px;color: white;padding: 5px;"  width="100%">
+      <th colspan="4">Basic Details</th>
+    </tr>
+    <tr  width="100%">
+      <td style="border: solid 1px black;font-size: x-small;font-weight: bold;padding: 5px;" width="25%" > Date Of Birth</td>
+      <td style="border: solid 1px black;font-size: x-small;padding: 3px;" width="25%" > {{Dob}}</td> 
+      <td style="border: solid 1px black;font-size: x-small;font-weight: bold;padding: 5px;" width="25%" >Email: </td>
+      <td style="border: solid 1px black;font-size: x-small;padding: 3px;" width="25%" > {{Email}}</td>
+    </tr>
+    <tr  width="100%">
+      <td style="border: solid 1px black;font-size: x-small;font-weight: bold;padding: 5px;" width="25%" >Salary: </td>
+      <td style="border: solid 1px black;font-size: x-small;padding: 3px;" width="25%" > {{Salary}}</td>
+      <td style="border: solid 1px black;font-size: x-small;font-weight: bold;padding: 5px;" width="25%" >PF Number: </td>
+      <td style="border: solid 1px black;font-size: x-small;padding: 3px;" width="25%" > {{PfNumber}}</td>
+    </tr>
+    <tr  width="100%">
+      <td style="border: solid 1px black;font-size: x-small;font-weight: bold;padding: 5px;" width="25%" >Blood Group: </td>
+      <td style="border: solid 1px black;font-size: x-small;padding: 3px;" width="25%" > {{BloodGroup}}</td>
+      <td style="border: solid 1px black;font-size: x-small;font-weight: bold;padding: 5px;" width="25%" >Phone Number: </td>
+      <td style="border: solid 1px black;font-size: x-small;padding: 3px;" width="25%" > {{PhoneNumber}}</td>
+    </tr>
+    <tr  width="100%">
+      <td style="border: solid 1px black;font-size: x-small;font-weight: bold;padding: 5px;" width="25%" >Permanent Address: </td>
+      <td style="border: solid 1px black;font-size: x-small;padding: 3px;" width="25%" > {{Address}}</td>
+      <td style="border: solid 1px black;font-size: x-small;font-weight: bold;padding: 5px;" width="25%" >Assets: </td>
+      <td style="border: solid 1px black;font-size: x-small;padding: 3px;" width="25%" > {{Assets}}</td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<app-confirm-dialog></app-confirm-dialog>
